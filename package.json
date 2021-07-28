@@ -1,0 +1,19 @@
+{
+  "name": "gerador-pdf",
+  "version": "1.0.0",
+  "description": "Criando um gerador de pdf com o PDFMake",
+  "main": "server.js",
+  "scripts": {
+    "dev": "nodemon src/server.js"
+  },
+  "author": "Gian",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "pdfmake": "^0.2.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.12"
+  }
+}
