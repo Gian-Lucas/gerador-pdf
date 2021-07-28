@@ -4,7 +4,7 @@ const route = express.Router();
 
 const PdfPrinter = require("pdfmake");
 
-list = [
+const list = [
   {
     name: "Gian",
     age: 15,
@@ -35,10 +35,20 @@ route.get("/list/pdf", (req, res) => {
 
   const printer = new PdfPrinter(fonts);
 
+  const bodyList = [];
+
+  list.forEach((rep) => {
+    const rows = [];
+    rows.push(rep.name);
+    rows.push(rep.age + "\n\n");
+    bodyList.push(rows);
+  });
+
   const docDefinition = {
-    content: ["Olá, salve pdfMake"],
+    content: [bodyList],
     defaultStyle: {
       font: "Helvetica",
+      fontSize: 15,
     },
   };
 
@@ -57,7 +67,6 @@ route.get("/list/pdf", (req, res) => {
     const result = Buffer.concat(chunks);
     res.end(result);
   });
-
 });
 
 module.exports = route;
