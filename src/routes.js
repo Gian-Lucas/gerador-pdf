@@ -43,10 +43,21 @@ route.get("/list/pdf", (req, res) => {
   };
 
   const pdfDoc = printer.createPdfKitDocument(docDefinition);
-  pdfDoc.pipe(fs.createWriteStream("document.pdf"));
+  //   pdfDoc.pipe(fs.createWriteStream("document.pdf"));
+
+  const chunks = [];
+
+  pdfDoc.on("data", (chunk) => {
+    chunks.push(chunk);
+  });
+
   pdfDoc.end();
 
-  res.send("pdf criado");
+  pdfDoc.on("end", () => {
+    const result = Buffer.concat(chunks);
+    res.end(result);
+  });
+
 });
 
 module.exports = route;
